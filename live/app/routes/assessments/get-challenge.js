@@ -16,7 +16,7 @@ export default BaseRoute.extend({
     return RSVP.hash({
       assessment: store.findRecord('assessment', assessmentId),
       challenge: store.findRecord('challenge', challengeId),
-      answers: store.queryRecord('answer', { assessment: assessmentId, challenge: challengeId })
+      answer: store.queryRecord('answer', { assessment: assessmentId, challenge: challengeId })
     });
   },
 
