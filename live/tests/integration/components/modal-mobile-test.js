@@ -19,7 +19,7 @@ describe('Integration | Component | modal mobile', function() {
     this.render(hbs`{{modal-mobile}}`);
 
     // then
-    const $titleWarningIcon = this.$('.modal-title__warning-icon');
+    const $titleWarningIcon = this.$('.mobile-warning-modal__icon');
     expect($titleWarningIcon.attr('src')).to.equal('/images/icon-mobile-support-warning.svg');
   });
 

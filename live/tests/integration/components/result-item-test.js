@@ -93,40 +93,6 @@ describe('Integration | Component | result item', function() {
       expect(this.$('.result-item__correction__button').text().trim()).to.deep.equal('RÉPONSE');
     });
 
-    it('should render tooltip for the answer', function() {
-      // given
-      this.set('answer', answer);
-
-      // when
-      this.render(hbs`{{result-item answer=answer index=index}}`);
-
-      // then
-      expect(this.$('div[data-toggle="tooltip"]').attr('data-original-title').trim()).to.equal('Réponse incorrecte');
-    });
-
-    it('should not render a tooltip when the answer is being retrieved', function() {
-      // given
-      this.set('answer', null);
-
-      // when
-      this.render(hbs`{{result-item answer=answer index=index}}`);
-
-      // then
-      expect(this.$('div[data-toggle="tooltip"]').attr('data-original-title')).to.equal(undefined);
-    });
-
-    it('should update the tooltip when the answer is eventually retrieved', function() {
-      // given
-      this.set('answer', null);
-      this.render(hbs`{{result-item answer=answer index=index}}`);
-
-      // when
-      this.set('answer', answer);
-
-      // then
-      expect(this.$('div[data-toggle="tooltip"]').attr('data-original-title').trim()).to.equal('Réponse incorrecte');
-    });
-
     it('should render tooltip with an image', function() {
       // given
       this.set('answer', answer);

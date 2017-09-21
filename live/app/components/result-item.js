@@ -60,17 +60,6 @@ export default Ember.Component.extend({
     return implementedTypes.includes(challengeType);
   }),
 
-  didRender() {
-    this._super(...arguments);
-
-    const tooltipElement = this.$('[data-toggle="tooltip"]');
-    const tooltipValue = this.get('resultTooltip');
-
-    if (tooltipValue) {
-      tooltipElement.tooltip({ title: tooltipValue });
-    }
-  },
-
   actions: {
     openComparisonPopin() {
       const assessmentId = this.get('answer.assessment.id');

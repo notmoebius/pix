@@ -32,11 +32,6 @@ describe('Acceptance | c1 - Consulter l\'écran de fin d\'un test ', function() 
     expect($proposals.text()).to.contain('Un QROCM est une question ouverte');
   });
 
-  it('c1.3 Pour une mauvaise réponse, le tableau récapitulatif donne une indication adéquate', function() {
-    const $cell = findWithAssert('div[data-toggle="tooltip"]:eq(0)');
-    expect($cell.attr('data-original-title')).to.equal('Réponse incorrecte');
-  });
-
   it('c1.9 Le nom du test est affiché', function() {
     expect(findWithAssert('.course-banner__name').text()).to.contain('First Course');
   });

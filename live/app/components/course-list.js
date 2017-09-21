@@ -1,26 +1,11 @@
 import Ember from 'ember';
 import ENV from 'pix-live/config/environment';
 
-function _userNotAlreadyWarnedAboutMobileIncompleteSupport(that) {
-  return that._isMobile() && !localStorage.getItem('pix-mobile-warning');
-}
-
-function _rememberThatUserIsNowAware() {
-  localStorage.setItem('pix-mobile-warning', 'true');
-}
-
-function _storeCourseToDisplayAfterWarning(that, course) {
-  that.set('selectedCourse', course);
-}
-
-function _displayWarningModal() {
-  $('#js-modal-mobile').modal();
-}
-
-const CourseList = Ember.Component.extend({
+export default Ember.Component.extend({
 
   courses: null,
   selectedCourse: null,
+  _isShowingModal: false,
 
   classNames: ['course-list'],
 
@@ -41,40 +26,50 @@ const CourseList = Ember.Component.extend({
   }),
 
   didInsertElement() {
-    const that = this;
-    Ember.run.scheduleOnce('afterRender', this, function() {
-      $('button[data-confirm]').click(function() {
-        $('#js-modal-mobile').modal('hide');
-        that.sendAction('startCourse', that.get('selectedCourse'));
-      });
-    });
-
     if (ENV.APP.isMobileSimulationEnabled) {
-      this.$().on('simulateMobileScreen', function() {
-        that.set('isSimulatedMobileScreen', 'true');
+      this.$().on('simulateMobileScreen', () => {
+        this.set('isSimulatedMobileScreen', 'true');
       });
     }
   },
 
-  _isMobile() {
+  _deviceIsMobile() {
     if (ENV.APP.isMobileSimulationEnabled) {
       return this.get('isSimulatedMobileScreen');
     }
     return $(window).width() < 767;
   },
 
+  _userNotAlreadyWarnedAboutMobileIncompleteSupport() {
+    return !localStorage.getItem('pix-mobile-warning');
+  },
+
+  _rememberThatUserIsNowAware() {
+    localStorage.setItem('pix-mobile-warning', 'true');
+  },
+
+  _displayWarningModal() {
+    this.set('_isShowingModal', true);
+  },
+
+  _doStartCourse() {
+    this.sendAction('startCourse', this.get('selectedCourse'));
+  },
+
   actions: {
     startCourse(course) {
-      if (_userNotAlreadyWarnedAboutMobileIncompleteSupport(this)) {
-        _rememberThatUserIsNowAware();
-        _storeCourseToDisplayAfterWarning(this, course);
-        _displayWarningModal();
+      this.set('selectedCourse', course);
+      if (this._deviceIsMobile() && this._userNotAlreadyWarnedAboutMobileIncompleteSupport()) {
+        //this._rememberThatUserIsNowAware();
+        this._displayWarningModal();
       } else {
-        this.sendAction('startCourse', course);
+        this._doStartCourse();
       }
+    },
+
+    createAssessment() {
+      this._doStartCourse();
     }
   }
 
 });
-
-export default CourseList;

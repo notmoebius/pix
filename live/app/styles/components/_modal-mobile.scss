@@ -1,15 +1,14 @@
-/* XXX : Forces bootstrap's default by including bootstrap props into .modal-mobile  container */
-.modal-mobile .modal-header {
+.mobile-warning-modal__header {
   border: none;
   text-align: center;
   margin-top: 29px;
 }
 
-.modal-mobile .modal-title {
+.mobile-warning-modal__title {
   line-height: 0;
 }
 
-.modal-mobile .modal-body {
+.mobile-warning-modal__body {
   font-family: $font-lato;
   font-size: 22px;
   font-weight: $font-light;
@@ -17,7 +16,7 @@
   color: $charcoal-grey;
 }
 
-.modal-mobile .modal-footer {
+.mobile-warning-modal__footer {
   border: none;
 }
 
@@ -36,7 +35,7 @@
   justify-content: center;
 }
 
-.modal-mobile__confirm-button {
+.mobile-warning-modal__confirm-button {
   background-color: $pix-blue;
   border-color: $pix-blue;
   border-bottom: 1px solid $mariner-blue;
@@ -47,14 +46,14 @@
   padding-left: 40px;
 }
 
-.modal-mobile__confirm-button:hover,
-.modal-mobile__confirm-button:active {
+.mobile-warning-modal__confirm-button:hover,
+.mobile-warning-modal__confirm-button:active {
   background-color: $lightning-yellow;
   border-color: $lightning-yellow;
   border-bottom: 1px solid $nugget-yellow;
 }
 
-.modal-mobile__dismiss-link {
+.mobile-warning-modal__dismiss-link {
   cursor: pointer;
   font-family: $font-lato;
   color: $charcoal-grey;

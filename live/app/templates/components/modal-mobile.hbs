@@ -1,24 +1,18 @@
-<div class="modal-mobile">
-  <div class="modal fade js-modal-mobile" tabindex="-1" role="dialog" id="js-modal-mobile">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">
-            <img class="modal-title__warning-icon" src="/images/icon-mobile-support-warning.svg" alt="Message d'alerte concernant le support des terminaux mobiles"/>
-          </h4>
-        </div>
-        <div class="modal-body">
-          <p>Certaines épreuves PIX peuvent être difficiles à réussir sur mobile. Pour une meilleure expérience, nous vous conseillons de passer ce test sur un ordinateur.</p>
-        </div>
-        <div class="modal-footer">
-          <div class="modal-button-container">
-            <button type="button" class="btn btn-primary modal-mobile__confirm-button" data-confirm="modal">Continuer</button>
-          </div>
-          <div class="modal-button-container">
-            <a nohref data-dismiss="modal" class="modal-mobile__dismiss-link">Revenir à l’accueil</a>
-          </div>
-        </div>
+{{#bs-modal class="mobile-warning-modal__container" open=open onHidden=(action "closeModal") closeButton=false as |modal|}}
+    {{#modal.header class="mobile-warning-modal__header"}}
+      <h4 class="mobile-warning-modal__title">
+        <img class="mobile-warning-modal__icon" src="/images/icon-mobile-support-warning.svg" alt="Message d'alerte concernant le support des terminaux mobiles"/>
+      </h4>
+    {{/modal.header}}
+    {{#modal.body class="mobile-warning-modal__body"}}
+      <p class="mobile-warning-modal__text">Certaines épreuves PIX peuvent être difficiles à réussir sur mobile. Pour une meilleure expérience, nous vous conseillons de passer ce test sur un ordinateur.</p>
+    {{/modal.body}}
+    {{#modal.footer class="mobile-warning-modal__footer"}}
+      <div class="modal-button-container">
+        <button class="btn btn-primary mobile-warning-modal__confirm-button" type="button" {{action "startCourse"}}>Continuer</button>
       </div>
-    </div>
-  </div>
-</div>
+      <div class="modal-button-container">
+        <a class="mobile-warning-modal__dismiss-link" href="" {{action "closeModal"}}>Revenir à l’accueil</a>
+      </div>
+    {{/modal.footer}}
+{{/bs-modal}}

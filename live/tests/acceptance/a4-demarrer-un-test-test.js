@@ -1,11 +1,10 @@
-import Ember from 'ember';
 import { describe, it, beforeEach, afterEach } from 'mocha';
 import { expect } from 'chai';
 import { startApp, destroyApp } from '../helpers/application';
 import _ from 'pix-live/utils/lodash-custom';
 
 const URL_OF_FIRST_TEST = '/assessments/ref_assessment_id/challenges/ref_qcm_challenge_id';
-const MODAL_SELECTOR = '.modal.fade.js-modal-mobile.in';
+const MODAL_SELECTOR = '.mobile-warning-modal__container.in';
 const START_BUTTON = '.course-item__begin-button';
 
 describe('Acceptance | a4 - Démarrer un test |', function() {
@@ -39,7 +38,7 @@ describe('Acceptance | a4 - Démarrer un test |', function() {
     });
   });
 
-  it('a4.5 Quand je démarre un test sur mobile, une modale m\'averti que l\'expérience ne sera pas optimale, mais je peux quand même continuer', function(done) {
+  it('a4.5 Quand je démarre un test sur mobile, une modale m\'avertie que l\'expérience ne sera pas optimale, mais je peux quand même continuer', function(done) {
 
     const $startLink = findWithAssert(START_BUTTON);
 
@@ -60,17 +59,15 @@ describe('Acceptance | a4 - Démarrer un test |', function() {
 
     // blocked by modal
     andThen(() => {
-      // XXX : ickiest hack : wait 500ms for bootstrap transition to complete
-      Ember.run.later(function() {
-        expect($(MODAL_SELECTOR)).to.have.lengthOf(1);
-        expect(currentURL()).to.equals('/');
-        $('a[data-dismiss]').click();
+      expect(currentURL()).to.equals('/');
+      expect($(MODAL_SELECTOR)).to.have.lengthOf(1);
 
-        return click($startLink).then(() => {
-          expect(currentURL()).to.contain(URL_OF_FIRST_TEST);
-          done();
-        });
-      }, 500);
+      const $continueButton = findWithAssert('.mobile-warning-modal__confirm-button');
+      click($continueButton);
+      andThen(() => {
+        expect(currentURL()).to.contain(URL_OF_FIRST_TEST);
+        done();
+      });
     });
   });
 
@@ -79,15 +76,14 @@ describe('Acceptance | a4 - Démarrer un test |', function() {
     triggerEvent('.index-page', 'simulateMobileScreen');
 
     andThen(() => {
-      Ember.run.later(function() {
-        expect(currentURL()).to.equals('/');
-        expect($(MODAL_SELECTOR)).to.have.lengthOf(0);
-      }, 500);
-    });
-    click($startLink);
-    andThen(() => {
-      expect(currentURL()).to.contain('/assessments/ref_assessment_id/challenges/ref_qcm_challenge_id');
-      done();
+      expect(currentURL()).to.equals('/');
+      expect($(MODAL_SELECTOR)).to.have.lengthOf(0);
+
+      click($startLink);
+      andThen(() => {
+        expect(currentURL()).to.contain('/assessments/ref_assessment_id/challenges/ref_qcm_challenge_id');
+        done();
+      });
     });
   });
 

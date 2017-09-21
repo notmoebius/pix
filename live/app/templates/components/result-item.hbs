@@ -5,9 +5,10 @@
 <div class="result-item__item-line"></div>
 
 <div class="result-item__icon">
-  <div data-toggle="tooltip" data-placement="top" title="{{resultItem.tooltip}}">
-    <img class="result-item__icon-img result-item__icon-img--{{resultItem.status}}" src={{resultItemIcon}} alt="">
-  </div>
+  {{#bs-tooltip class="result-item__icon-title"}}
+    {{resultItem.tooltip}}
+  {{/bs-tooltip}}
+  <img class="result-item__icon-img result-item__icon-img--{{resultItem.status}}" src={{resultItemIcon}} alt="">
 </div>
 
 <div class="result-item__instruction">
