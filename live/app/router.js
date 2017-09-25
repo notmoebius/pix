@@ -52,9 +52,9 @@ Router.map(function() {
   this.route('logout', { path: '/deconnexion' });
   this.route('course-groups', { path: '/defis-pix' });
   this.route('board');
-  this.route('legal-notices',{ path: '/mentions-legales' });
+  this.route('legal-notices', { path: '/mentions-legales' });
   this.route('terms-of-service', { path: '/conditions-generales-d-utilisation' });
-  this.route('password-reset', { path : 'mot-passe-oublie'});
+  this.route('password-reset', { path: 'mot-passe-oublie' });
 });
 
 export default Router;
